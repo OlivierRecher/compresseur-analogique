@@ -31,7 +31,7 @@
 | 3 bits     | Forte distorsion , signal crénelé |
 | 2 bits     | Très médiocre, signal très échantillonné |
 
-**Justification :** Plus le nombre de bits diminue, plus le bruit de quantification augmente. La relation SNR ≈ 6×n dB (pour un signal sinusoïdal) explique cette dégradation progressive.
+**Justification :** Plus le nombre de bits diminue, plus le bruit de quantification augmente. La relation approximative entre le nombre de bits et l'amélioration de la qualité (≈ 6 dB par bit pour une sinusoïde) explique cette dégradation progressive.
 
 ### 1.d Quantification à 1 bit
 
@@ -41,9 +41,25 @@
 - Avec 1 bit, seulement 2 niveaux possibles (-1 et +1, seule le signe est conservé)
 - Le quantificateur agit comme un comparateur de seuil à zéro
 - La forme d'onde originale est irrécupérable, on entend que du bruits
+## Partie 2 : Analyse du codeur DPCM
 
-### Conclusions
+### 1. Erreurs aléatoires — \(p = 10^{-2}\) et \(p = 10^{-3}\)
 
-1. **Relation linéaire** : Le SNR diminue d'environ 6 dB par bit réduit, confirmant la théorie
-2. **Seuil d'audibilité** : En dessous de 4 bits, la dégradation devient très perceptible
-3. **Limite extrême** : À 1 bit, le système ne conserve que l'information binaire de passage par zéro
+- À \(p = 10^{-2}\) (1 % d'erreurs)  
+    Observations : dégradation significative du signal ; qualité fortement réduite, grésillement audibles.
+
+- À \(p = 10^{-3}\) (0,1 % d'erreurs)  
+    Observations : dégradation légère, à peine perceptible ; qualité peu affectée.
+
+### 2. Voix de Xtine quantifiée à 8 bits/échantillon (\(p = 10^{-2}\))
+
+La qualité est dégradée par rapport au signal sans erreur, mais la voix reste intelligible. On entend des clics et des distorsions, mais la parole reste compréhensible.
+
+---
+
+### Conclusions générales
+
+- Le **codeur DPCM** est plus robuste aux erreurs que le **PCM**, car une erreur n'affecte qu’un échantillon et a un impact limité dans le temps (contrairement au PCM où une erreur affecte un échantillon de manière indépendante).
+- Cependant, à des **taux d’erreur élevés (comme 1 %)**, la dégradation devient significative.
+- Pour la **voix**, la redondance naturelle permet de maintenir l’intelligibilité même avec un taux d’erreur de 1 %.
+
